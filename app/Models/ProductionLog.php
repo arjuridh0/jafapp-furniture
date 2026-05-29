@@ -22,6 +22,7 @@ class ProductionLog extends Model
      * Admin cannot skip stages or rollback to a previous status.
      */
     public const STATUS_SEQUENCE = [
+        'payment_confirmed',
         'order_received',
         'material_preparation',
         'in_production',
@@ -37,6 +38,7 @@ class ProductionLog extends Model
         'notes',
         'photo',
         'updated_by',
+        'created_at',
     ];
 
     protected function casts(): array

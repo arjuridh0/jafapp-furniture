@@ -1,58 +1,194 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🪑 JAFAPP — Jati Akbar Furniture Web Application (JAFF)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+JAFAPP adalah platform e-commerce dan manajemen produksi khusus (custom order) untuk bisnis furnitur premium kayu jati **Jati Akbar**. Aplikasi ini memadukan kemudahan transaksi pelanggan (termasuk *Guest Checkout* & *Midtrans Payment Gateway*) dengan sistem pelacakan produksi yang ketat (real-time production tracking) serta laporan analitik penjualan/produksi bagi jajaran admin dan super admin.
 
-## About Laravel
+Aplikasi ini didesain dengan estetika premium (*Teak & Sand*), performa super responsif, micro-animations, dan transisi halaman modern (*View Transitions API*).
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🚀 Fitur Utama Sistem
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 1. Pelanggan & Publik (Frontend)
+*   **Katalog Produk Premium:** Galeri gambar dinamis, filter kategori instan, pencarian responsif, dan efek transisi halaman premium (*View Transitions*).
+*   **Keranjang Belanja:** Berbasis *session* tanpa ribet login terlebih dahulu (Session-based Cart).
+*   **Guest Checkout (Tanpa Wajib Daftar):** Pelanggan dapat berbelanja secara instan. Sistem otomatis membuatkan akun tamu pasif, mengirimkan email kredensial login sementara, dan mengamankan data transaksi.
+*   **Registrasi & Aktivasi Akun:** Alur pendaftaran mandiri dengan verifikasi email / tautan aktivasi akun demi keamanan tingkat tinggi.
+*   **Sistem Custom Order:** Form interaktif bagi pelanggan terdaftar untuk mengajukan pesanan furnitur kustom dengan spesifikasi jenis kayu, jenis finishing, dimensi, serta unggah 3 gambar referensi.
+*   **Pelacakan Pesanan Real-time (Tracking System):** Konsumen dapat melacak status pengerjaan kayu pesanan mereka berdasarkan kode unik pesanan secara mendetail.
+*   **Profil Pelanggan:** Halaman khusus untuk memperbarui informasi kontak dan mengganti password akun dengan aman.
 
-## Learning Laravel
+### 2. Panel Admin (Manajemen & Produksi)
+*   **Dashboard Analytics:** Ringkasan KPI penjualan, grafik tren pesanan 30 hari menggunakan Chart.js, status pembayaran, serta diagram pengerjaan produksi.
+*   **Manajemen Produk & Kategori:** Menambahkan, mengedit, mengaktifkan/menonaktifkan produk dengan dukungan unggah banyak foto (JSON cast array gallery) dan kategori otomatis slug.
+*   **Manajemen Pesanan & Pengiriman:** Fitur bagi admin untuk menginput biaya pengiriman (*shipping cost*) manual setelah berdiskusi dengan pelanggan.
+*   **Alur Produksi Super Ketat:** Manajemen status produksi yang diatur dengan urutan log yang kaku (`order_received` -> `material_preparation` -> `in_production` -> `finishing` -> `ready_to_ship` -> `shipped` -> `completed`). Sistem menolak pemangkasan tahapan pengerjaan (no rollback & no skip).
+*   **Manajemen Custom Order:** Meninjau pengajuan pesanan kustom pelanggan, memberikan penawaran harga kesepakatan (*agreed price*), menyetujui atau menolaknya dengan catatan khusus admin.
+*   **Laporan Ekspor Keuangan & Produksi:** Mengunduh ringkasan performa penjualan dan lini produksi ke dalam format **PDF (Dompdf)** dan **Excel (Maatwebsite Excel)**.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 3. Panel Super Admin (User Access Control)
+*   **Manajemen Pengguna:** Menampilkan seluruh daftar pengguna (Customer, Admin, Super Admin).
+*   **Hak Akses Dinamis (RBAC):** Mengubah peran pengguna (upgrade/downgrade ke admin) dan mematikan/mengaktifkan status akun jika mendeteksi pelanggaran keamanan.
+*   **Pembuatan Akun Admin Baru:** Form pembuatan akun pengelola dari panel internal secara instan.
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+## 🛠️ Stack Teknologi & Kebutuhan Sistem
 
-## Agentic Development
+*   **Backend Framework:** Laravel 11.x
+*   **PHP Version:** 8.2 ke atas (Direkomendasikan PHP 8.4)
+*   **Frontend Engine:** Tailwind CSS v4, Alpine.js, Blade Templates (Clean, no-Livewire/no-SPA bloat)
+*   **Database Engine:** MySQL 8.0 / MariaDB
+*   **Integrasi Pihak Ketiga:** Midtrans Snap API & Midtrans Webhook (Sandbox Mode)
+*   **Ekspor Dokumentasi:** `barryvdh/laravel-dompdf` & `maatwebsite/excel`
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+---
 
+## 📦 Panduan Instalasi & Pengaturan Tim
+
+Silakan ikuti langkah-langkah di bawah ini untuk memasang proyek ini di lingkungan lokal Anda (Direkomendasikan menggunakan **Laragon** pada Windows).
+
+### Langkah 1: Kloning Repositori
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+git clone <url-repositori-anda>
+cd JAFF
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+### Langkah 2: Memasang Dependensi
+Pasang semua dependensi PHP (Composer) dan Javascript (NPM) yang diperlukan:
+```bash
+composer install
+npm install
+```
 
-## Contributing
+### Langkah 3: Konfigurasi File Environment
+Salin file konfigurasi `.env.example` menjadi `.env`:
+```bash
+cp .env.example .env
+```
+Buka file `.env` yang baru dibuat di VS Code atau editor teks lainnya, lalu sesuaikan bagian koneksi database:
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=jafapp
+DB_USERNAME=root
+DB_PASSWORD=
+```
+*Catatan: Pastikan Anda sudah membuat database bernama `jafapp` di Laragon/phpMyAdmin Anda sebelum berlanjut.*
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Buka juga bagian email SMTP di `.env` dan isi dengan kredensial Gmail App Password Anda agar fitur notifikasi pesanan dan aktivasi akun berjalan:
+```env
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=465
+MAIL_USERNAME=email-anda@gmail.com
+MAIL_PASSWORD=app-password-anda
+MAIL_ENCRYPTION=ssl
+MAIL_FROM_ADDRESS=email-anda@gmail.com
+```
 
-## Code of Conduct
+### Langkah 4: Generate Application Key
+```bash
+php artisan key:generate
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Langkah 5: Migrasi Database & Seeding Data Utama
+Jalankan migrasi tabel beserta pengisian data contoh awal (Seeders):
+```bash
+php artisan migrate --seed
+```
+*Perintah ini akan membuat semua struktur tabel serta memuat data produk furnitur jati, kategori, pesanan contoh, dan kredensial default untuk uji coba.*
 
-## Security Vulnerabilities
+### Langkah 6: Membuat Simbolik Link Folder Storage
+Agar gambar produk yang diunggah dapat diakses dari browser, hubungkan folder storage Laravel ke public:
+```bash
+php artisan storage:link
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Langkah 7: Jalankan Server Lokal
+Nyalakan compiler aset frontend (Vite) dan server Laravel Artisan secara bersamaan:
 
-## License
+**Terminal 1 (Vite compiler):**
+```bash
+npm run dev
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+**Terminal 2 (Laravel local server):**
+```bash
+php artisan serve
+```
+Aplikasi Anda kini sudah aktif dan dapat diakses melalui tautan default: [http://127.0.0.1:8000](http://127.0.0.1:8000)
+
+---
+
+## 💳 Integrasi Pembayaran (Simulasi / Mock Payment)
+
+Saat ini, sistem menggunakan **Mode Simulasi Pembayaran (Mock Payment)** untuk mempermudah proses *testing* lokal tanpa perlu menyiapkan akun Midtrans Sandbox. Saat Anda melakukan *checkout*, tombol "Bayar Sekarang" akan otomatis memproses pembayaran menjadi lunas (Paid).
+
+**Integrasi Midtrans (Persiapan Masa Depan):**
+Kode integrasi Midtrans Snap API dan Webhook sudah tersedia di dalam sistem (cek `CheckoutController.php` dan `MidtransService.php`). Jika kedepannya Anda ingin mengaktifkan Midtrans sungguhan, Anda perlu:
+1. Mengembalikan logika `createSnapToken` pada `CheckoutController@confirmation`.
+2. Mengganti form Mock Pay di `confirmation.blade.php` dengan script `snap.js`.
+3. Mengisi credentials Midtrans Sandbox Anda di file `.env`:
+```env
+MIDTRANS_MERCHANT_ID=your-merchant-id
+MIDTRANS_CLIENT_KEY=your-client-key
+MIDTRANS_SERVER_KEY=your-server-key
+MIDTRANS_IS_PRODUCTION=false
+MIDTRANS_IS_SANITIZED=true
+MIDTRANS_IS_3DS=true
+```
+4. Mendaftarkan URL Webhook (`http://<domain-publik-anda>/api/midtrans/callback`) di Dashboard Portal Midtrans Anda.
+
+---
+
+## 🔑 Akun Login Pengujian (Default Credentials)
+
+Setelah Anda menjalankan perintah `--seed`, Anda dapat menggunakan akun siap pakai berikut ini untuk meninjau sistem:
+
+| Peran (Role) | Email | Password | Hak Akses Utama |
+| :--- | :--- | :--- | :--- |
+| **Super Admin** | `superadmin@jafapp.com` | `superadmin123` | Manajemen User, Ubah Role, Matikan Akun, Buat Akun Admin |
+| **Admin** | `admin@jafapp.com` | `admin123` | Update Status Produksi, Input Biaya Ongkir, Kelola Katalog & Kategori, Approve Custom Order, Ekspor PDF/Excel |
+| **Customer** | `customer@jafapp.com` | `password` | Mengajukan Custom Order, Melihat Riwayat Belanja, Ubah Password Profil |
+
+---
+
+## 🧪 Menjalankan Suite Pengujian Otomatis
+
+Aplikasi ini dilengkapi pengujian unit dan fitur terotomatisasi (*Automatic Feature Testing*) untuk mencegah regresi kode. Anda dapat memverifikasi kualitas codebase dengan menjalankan perintah:
+
+```bash
+php artisan test
+```
+
+Semua suite pengujian dijamin **100% Passed (Hijau)** yang mencakup pengujian:
+1.  **RBAC & Security Test (`RbacTest`):** Menjamin Customer & Tamu ditolak saat mencoba masuk halaman Admin/Super Admin.
+2.  **Checkout & Cart Flow (`CheckoutTest`):** Simulasi penambahan produk ke keranjang, memperbarui jumlah, menghapus, serta memproses pembuatan pesanan guest checkout.
+3.  **Midtrans Webhook Callback (`MidtransWebhookTest`):** Simulasi validasi callback transaksi aman dari luar server.
+4.  **Sequential Production Tracking (`ProductionStatusTest`):** Mengunci alur proses pembuatan mebel agar berjalan sesuai urutan log tanpa lompatan.
+
+---
+
+## 📁 Struktur Penting Proyek untuk Tim Pengembang
+
+Untuk mempermudah koordinasi pengerjaan tim Anda, berikut adalah struktur file penting yang memuat logika khusus JAFAPP:
+
+*   **`app/Services/CheckoutService.php`**
+    *   *Logika:* Menangani proses Guest Checkout, pendaftaran akun tamu otomatis pasif, serta pembuatan nomor pesanan unik terpusat.
+*   **`app/Services/MidtransService.php`**
+    *   *Logika:* Komunikasi API dengan SDK Midtrans untuk mendapatkan *Snap Token* pembayaran dan memproses verifikasi notifikasi callback.
+*   **`app/Http/Middleware/RoleMiddleware.php`**
+    *   *Logika:* Pembatasan hak akses berbasis peran (Customer, Admin, Super Admin). Terdaftar dengan alias `role` di `bootstrap/app.php`.
+*   **`resources/css/app.css`**
+    *   *Logika:* Pusat variabel desain premium (*Tailwind v4 tokens*). Menggunakan palet khusus: `teak` (coklat jati hangat) dan `sand` (warna pasir lembut).
+*   **`app/Models/Order.php` & `ProductionLog.php`**
+    *   *Logika:* Model data pelacakan yang menampung aturan sekuensial tahapan produksi furnitur jati Jati Akbar.
+
+---
+
+## 📝 Aturan Tambahan & Komitmen Git
+*   **`.gitignore` Note:** Folder panduan developer `skills/` telah dimasukkan ke dalam `.gitignore` lokal agar tidak mengotori repositori git publik Anda. File ini tetap aman di lokal untuk panduan pengerjaan Anda sehari-hari.
+*   **Commit Format:** Kami menggunakan skema penamaan commit yang rapi sesuai fungsionalitas fase, seperti: `Phase 5.x: [Deskripsi pekerjaan yang jelas]`.
+
+Selamat berkolaborasi dalam tim untuk mengembangkan **JAFAPP**! Jika ada kendala teknis atau pertanyaan pengembangan, silakan hubungi tim lead Anda atau ajukan diskusi pada repositori. 🛠️🪓✨

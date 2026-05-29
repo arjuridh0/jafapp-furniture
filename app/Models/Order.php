@@ -32,6 +32,7 @@ class Order extends Model
      * The order here is STRICT — no skipping, no rollback.
      */
     public const PRODUCTION_STATUS_SEQUENCE = [
+        'payment_confirmed',
         'order_received',
         'material_preparation',
         'in_production',

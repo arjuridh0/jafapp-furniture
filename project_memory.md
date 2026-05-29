@@ -54,6 +54,14 @@
 ## Git
 - Initialized with branches: main, develop (currently on develop)
 - Initial commit: "Phase 1: Initial Laravel 13 setup with JAFAPP database schema, models, RBAC middleware, Midtrans config, and seeders"
+- GitHub: Remote `origin` sudah terhubung (2026-05-28)
+- Workflow: main (production) ← develop (integration) ← feature/* (per-fitur)
+- Commit format: `Phase X.Y: [deskripsi singkat]`
+
+## Progress Tracking
+- **PROGRESS.md** (di root project) = Sumber kebenaran utama (Single Source of Truth)
+- Semua agent di conversation baru WAJIB baca PROGRESS.md terlebih dahulu
+- Update PROGRESS.md setelah selesai bekerja
 
 ## Key Decisions
 - Cart: Session-based (no database table), to be implemented in Phase 2/3
@@ -72,3 +80,17 @@
 - [2026-05-28] - Action: Created storage:link
 - [2026-05-28] - Action: Git init, initial commit, created main & develop branches
 - [2026-05-28] - Phase 1 COMPLETED ✅
+- [2026-05-28] - Action: Created Layout foundation, Tailwind CSS v4 variables in app.css, Vite config
+- [2026-05-28] - Action: Created public pages (Home, About, Catalog, Tracking, Cart) and Reusable Components
+- [2026-05-28] - Action: Created HomeController, CatalogController, CartController, TrackingController, PageController
+- [2026-05-28] - Phase 2 COMPLETED ✅
+- [2026-05-28] - Action: Refactored UI layouts for premium look based on TasteSkill/MWG audit (OKLCH, View Transitions, custom scrollbars, starting-style entry animations)
+- [2026-05-28] - Phase 2.1 COMPLETED ✅
+- [2026-05-29] - Action: Created MidtransService (Snap token, webhook verification) and CheckoutService (guest logic, order number)
+- [2026-05-29] - Action: Created CheckoutController, PaymentController, Auth controllers (Login, Activation, ForgotPassword)
+- [2026-05-29] - Action: Created CustomerController for order history
+- [2026-05-29] - Action: Created 3 Mail classes (OrderConfirmation, GuestCredentials, Activation) with HTML templates
+- [2026-05-29] - Action: Created checkout views (form, confirmation, payment-status), auth views (login, activate, set-password, forgot/reset password, resend-activation), customer views (orders index/show)
+- [2026-05-29] - Action: Updated routes/web.php with all Phase 3 routes (35 total routes)
+- [2026-05-29] - Action: Updated navbar auth links and cart checkout button
+- [2026-05-29] - Phase 3 COMPLETED ✅

@@ -3,7 +3,342 @@
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
+/* ═══════════════════════════════════════════════════════════
+   JAFAPP Design System — Single Source of Truth
+   ═══════════════════════════════════════════════════════════ */
+
+/* Native Cross-Document Page Transitions */
+@view-transition {
+    navigation: auto;
+}
+
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    /* ── Teak OKLCH Palette ─────────────────────────── */
+    --color-teak-950: oklch(0.16 0.04 34);
+    --color-teak-900: oklch(0.24 0.06 34);
+    --color-teak-800: oklch(0.32 0.08 34);
+    --color-teak-700: oklch(0.38 0.095 34);
+    --color-teak-600: oklch(0.48 0.12 38);
+    --color-teak-500: oklch(0.58 0.14 48);
+    --color-teak-200: oklch(0.88 0.03 60);
+    --color-teak-100: oklch(0.935 0.02 65);
+    --color-teak-50: oklch(0.97 0.01 70);
+
+    /* ── Foliage Accent ─────────────────────────────── */
+    --color-forest-700: oklch(0.28 0.04 155);
+    --color-forest-600: oklch(0.36 0.05 155);
+
+    /* ── Sand Neutrals ──────────────────────────────── */
+    --color-sand-50: oklch(0.98 0.005 60);
+    --color-sand-100: oklch(0.95 0.008 60);
+    --color-sand-200: oklch(0.90 0.012 60);
+    --color-sand-300: oklch(0.80 0.015 60);
+    --color-sand-400: oklch(0.65 0.018 60);
+    --color-sand-500: oklch(0.50 0.018 60);
+    --color-sand-600: oklch(0.40 0.015 60);
+    --color-sand-700: oklch(0.30 0.012 60);
+    --color-sand-800: oklch(0.20 0.01 60);
+    --color-sand-900: oklch(0.12 0.008 60);
+
+    /* ── Fonts ──────────────────────────────────────── */
+    --font-heading: "Playfair Display", serif;
+    --font-body: "Inter", sans-serif;
+
+    /* ── Easing ─────────────────────────────────────── */
+    --ease-teak-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-teak-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Global Base
+   ═══════════════════════════════════════════════════════════ */
+
+html {
+    scrollbar-color: var(--color-teak-700) var(--color-teak-50);
+    scrollbar-width: thin;
+    scroll-behavior: smooth;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PUBLIC — Shared Components
+   ═══════════════════════════════════════════════════════════ */
+
+@layer components {
+    /* ── Buttons ────────────────────────────────────── */
+    .btn-primary {
+        @apply bg-teak-700 hover:bg-teak-600 text-teak-50 font-medium py-3 px-6 rounded-sm shadow-sm transition-all duration-300 ease-teak-smooth hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 cursor-pointer;
+    }
+    .btn-secondary {
+        @apply bg-transparent hover:bg-teak-100 text-teak-700 border border-teak-700/60 font-medium py-3 px-6 rounded-sm transition-all duration-300 ease-teak-smooth cursor-pointer;
+    }
+
+    /* ── Cards ──────────────────────────────────────── */
+    .card {
+        @apply bg-sand-50 rounded-sm border border-sand-200/50 shadow-[0_4px_20px_-4px_rgba(61,31,22,0.03)] hover:shadow-[0_12px_30px_-6px_rgba(61,31,22,0.06)] hover:border-teak-700/30 transition-all duration-500 ease-teak-smooth overflow-hidden;
+    }
+
+    /* ── Inputs ─────────────────────────────────────── */
+    .input-premium {
+        @apply w-full px-4 py-2.5 border border-sand-300 rounded-sm bg-white text-sand-900 text-sm transition-all duration-300 ease-teak-smooth focus:outline-hidden focus:border-teak-600 focus:ring-2 focus:ring-teak-500/15;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ADMIN — Layout
+   ═══════════════════════════════════════════════════════════ */
+
+.admin-sidebar {
+    --sidebar-w: 260px;
+    width: var(--sidebar-w);
+    min-height: 100dvh;
+    background: oklch(0.22 0.02 55);
+    color: oklch(0.85 0.02 80);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.admin-content {
+    margin-left: 260px;
+    min-height: 100dvh;
+    background: oklch(0.97 0.005 80);
+}
+
+@media (max-width: 768px) {
+    .admin-sidebar {
+        position: fixed;
+        z-index: 50;
+        transform: translateX(-100%);
+    }
+    .admin-sidebar.open {
+        transform: translateX(0);
+    }
+    .admin-content {
+        margin-left: 0;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ADMIN — Sidebar Navigation
+   ═══════════════════════════════════════════════════════════ */
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.625rem 1rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: oklch(0.75 0.02 80);
+    transition: all 0.2s ease;
+}
+.sidebar-link:hover {
+    background: oklch(0.28 0.02 55);
+    color: oklch(0.95 0.02 80);
+}
+.sidebar-link.active {
+    background: oklch(0.55 0.12 55);
+    color: #fff;
+    font-weight: 600;
+}
+
+.sidebar-section-title {
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: oklch(0.55 0.02 80);
+    padding: 0 1rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ADMIN — KPI Cards
+   ═══════════════════════════════════════════════════════════ */
+
+.kpi-card {
+    background: #fff;
+    border: 1px solid oklch(0.92 0.01 80);
+    border-radius: 0.375rem;
+    padding: 1.25rem;
+    transition: box-shadow 0.2s ease;
+}
+.kpi-card:hover {
+    box-shadow: 0 4px 12px oklch(0 0 0 / 0.06);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ADMIN — Tables
+   ═══════════════════════════════════════════════════════════ */
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.admin-table th {
+    text-align: left;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: oklch(0.55 0.02 80);
+    padding: 0.75rem 1rem;
+    border-bottom: 2px solid oklch(0.92 0.01 80);
+    white-space: nowrap;
+}
+.admin-table td {
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    border-bottom: 1px solid oklch(0.95 0.005 80);
+    color: oklch(0.3 0.02 80);
+}
+.admin-table tbody tr:hover {
+    background: oklch(0.98 0.005 80);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ADMIN — Badges
+   ═══════════════════════════════════════════════════════════ */
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.125rem 0.5rem;
+    border-radius: 9999px;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+.badge-pending    { background: oklch(0.93 0.08 85);  color: oklch(0.45 0.12 70); }
+.badge-paid       { background: oklch(0.93 0.06 155); color: oklch(0.35 0.1 155); }
+.badge-production { background: oklch(0.93 0.06 250); color: oklch(0.4 0.12 250); }
+.badge-completed  { background: oklch(0.93 0.06 155); color: oklch(0.3 0.1 155); }
+.badge-cancelled  { background: oklch(0.93 0.06 25);  color: oklch(0.45 0.15 25); }
+.badge-custom     { background: oklch(0.93 0.06 300); color: oklch(0.4 0.12 300); }
+
+/* ═══════════════════════════════════════════════════════════
+   ADMIN — Buttons
+   ═══════════════════════════════════════════════════════════ */
+
+.btn-admin {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: none;
+}
+.btn-admin-primary {
+    background: oklch(0.55 0.12 55);
+    color: #fff;
+}
+.btn-admin-primary:hover { background: oklch(0.5 0.12 55); }
+
+.btn-admin-secondary {
+    background: oklch(0.95 0.01 80);
+    color: oklch(0.3 0.02 80);
+    border: 1px solid oklch(0.88 0.01 80);
+}
+.btn-admin-secondary:hover { background: oklch(0.92 0.01 80); }
+
+.btn-admin-danger {
+    background: oklch(0.55 0.2 25);
+    color: #fff;
+}
+.btn-admin-danger:hover { background: oklch(0.5 0.2 25); }
+
+.btn-admin-success {
+    background: oklch(0.5 0.15 155);
+    color: #fff;
+}
+.btn-admin-success:hover { background: oklch(0.45 0.15 155); }
+
+/* ═══════════════════════════════════════════════════════════
+   ADMIN — Form Inputs
+   ═══════════════════════════════════════════════════════════ */
+
+.admin-input {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid oklch(0.88 0.01 80);
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    transition: border-color 0.2s ease;
+    background: #fff;
+}
+.admin-input:focus {
+    outline: none;
+    border-color: oklch(0.55 0.12 55);
+    box-shadow: 0 0 0 3px oklch(0.55 0.12 55 / 0.1);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Transitions & Animations
+   ═══════════════════════════════════════════════════════════ */
+
+::view-transition-group(root) {
+    animation-duration: 0.5s;
+    animation-timing-function: var(--transition-timing-function-teak-smooth);
+}
+
+/* Pure CSS transition for Alpine dropdowns */
+.dropdown-animate {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    transition: opacity 0.3s ease-teak-smooth, transform 0.3s ease-teak-smooth, display 0.3s ease-teak-smooth allow-discrete;
+}
+@starting-style {
+    .dropdown-animate {
+        opacity: 0;
+        transform: translateY(-8px) scale(0.95);
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Hero Entrance Animations (staggered fade-up)
+   ═══════════════════════════════════════════════════════════ */
+
+.hero-badge-animate,
+.hero-title-animate,
+.hero-text-animate,
+.hero-cta-animate,
+.hero-trust-animate {
+    animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.hero-badge-animate  { animation-delay: 0.1s; }
+.hero-title-animate  { animation-delay: 0.2s; }
+.hero-text-animate   { animation-delay: 0.35s; }
+.hero-cta-animate    { animation-delay: 0.5s; }
+.hero-trust-animate  { animation-delay: 0.65s; }
+
+@keyframes heroFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Card Entrance Animation (CSS-only, no JS)
+   ═══════════════════════════════════════════════════════════ */
+
+.card-animate {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@starting-style {
+    .card-animate {
+        opacity: 0;
+        transform: translateY(20px);
+    }
 }
